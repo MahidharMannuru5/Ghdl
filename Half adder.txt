@@ -1,0 +1,91 @@
+HALFADDER
+
+library IEEE;
+
+use IEEE.std_logic_1164.all;
+
+entity ha is
+
+port(
+
+a,b : IN std_logic;
+
+HA_sum, HA_carry : OUT std_logic);
+
+end ha;
+
+architecture dataflow of ha is
+
+begin
+
+HA_sum <= a xor b;
+
+HA_carry <= a and b;
+
+end dataflow;
+
+HALFADDER_TB CODE
+
+library IEEE;
+
+use IEEE.std_logic_1164.all;
+
+entity ha1_tb is
+
+end entity;
+
+architecture tb of ha1_tb is
+
+component ha is
+
+port(a,b : IN std_logic;
+
+HA_sum, HA_carry : OUT std_logic);
+
+end component;
+
+signal a, b, HA_sum, HA_carry : std_logic;
+
+begin
+
+uut: ha port map(
+
+a => a, b => b,
+
+HA_sum => HA_sum,
+
+HA_carry => HA_carry);
+
+stim: process
+
+begin
+
+a <= '0';
+
+b <= '0';
+
+wait for 10 ns;
+
+a <= '0';
+
+b <= '1';
+
+wait for 10 ns;
+
+a <= '1';
+
+b <= '0';
+
+wait for 10 ns;
+
+a <= '1';
+
+b <= '1';
+
+wait for 10 ns;
+
+wait;
+
+end process;
+
+end tb;
