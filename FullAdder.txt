@@ -1,0 +1,79 @@
+FULL ADDER :   
+library IEEE;
+use IEEE.std_logic_1164.all;
+entity fa is
+port(
+a,b,cin : IN std_logic;
+ FA_sum, FA_carry : OUT std_logic);
+end fa;
+architecture dataflow of fa is
+begin
+FA_sum <= (a xor b) xor cin;
+FA_carry <= (a and b) or (b and cin) or (cin and a);
+end dataflow;
+Fa_ tb code
+library IEEE;
+use IEEE.std_logic_1164.all;
+
+entity fa1_tb is
+end entity;
+
+architecture tb of fa1_tb is
+component fa is
+port(a,b,cin : IN std_logic;
+ FA_sum, FA_carry : OUT std_logic);
+end component;
+signal a, b, cin,FA_sum, FA_carry : std_logic;
+begin
+uut: fa port map(
+a => a, b => b,
+cin => cin,
+FA_sum => FA_sum,
+FA_carry => FA_carry);
+stim: process
+begin
+
+a <= '0';
+b <= '0';
+cin <= '0';
+wait for 10 ns;
+
+a <= '0';
+b <= '0';
+cin <= '1';
+wait for 10 ns;
+
+a <= '0';
+b <= '1';
+cin <= '0';
+wait for 10 ns;
+
+a <= '0';
+b <= '1';
+cin <= '1';
+wait for 10 ns;
+
+a <= '1';
+b <= '0';
+cin <= '0';
+wait for 10 ns;
+
+a <= '1';
+b <= '0';
+cin <= '1';
+wait for 10 ns;
+
+a <= '1';
+b <= '1';
+cin <= '0';
+wait for 10 ns;
+
+a <= '1';
+b <= '1';
+cin <= '1';
+wait for 10 ns;
+wait;
+
+end process;
+
+end tb;
