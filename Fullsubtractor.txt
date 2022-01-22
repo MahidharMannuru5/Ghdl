@@ -1,0 +1,130 @@
+FULLSUBTRACTOR
+
+library IEEE;
+
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity full_sub is
+
+port( A, B, C : in std_logic;
+
+DIFF, Borrow : out std_logic);
+
+end entity;
+
+architecture dataflow of full_sub is
+
+begin
+
+DIFF <= (A xor B) xor C;
+
+Borrow <= ((not A) and (B or C)) or (B and C);
+
+end dataflow;
+
+FULLSUBTRACTOR TESTBENCH CODE
+
+library IEEE;
+
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity full_sub_tb is
+
+end entity;
+
+architecture tb of full_sub_tb is
+
+component full_sub is
+
+port( A, B, C : in std_logic;
+
+DIFF, Borrow : out std_logic);
+
+end component;
+
+signal A, B, C, DIFF, Borrow: std_logic;
+
+begin
+
+uut: full_sub port map(
+
+A => A, B => B, C => C,
+
+DIFF => DIFF,
+
+Borrow => Borrow);
+
+stim: process
+
+begin
+
+A <= '0';
+
+B <= '0';
+
+C <= '0';
+
+wait for 20 ns;
+
+A <= '0';
+
+B <= '0';
+
+C <= '1';
+
+wait for 20 ns;
+
+A <= '0';
+
+B <= '1';
+
+C <= '0';
+
+wait for 20 ns;
+
+A <= '0';
+
+B <= '1';
+
+C <= '1';
+
+wait for 20 ns;
+
+A <= '1';
+
+B <= '0';
+
+C <= '0';
+
+wait for 20 ns;
+
+A <= '1';
+
+B <= '0';
+
+C <= '1';
+
+wait for 20 ns;
+
+A <= '1';
+
+B <= '1';
+
+C <= '0';
+
+wait for 20 ns;
+
+A <= '1';
+
+B <= '1';
+
+C <= '1';
+
+wait for 20 ns;
+
+wait;
+
+end process;
+
+end tb;
+
